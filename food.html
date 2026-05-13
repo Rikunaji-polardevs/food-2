@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKN_RIOT! - 9 MENU LIAR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Public+Sans:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #e8e8e8;
+            --main: #ffde00; /* Kuning Hazard */
+            --accent: #ff4d00; /* Orange Riot */
+            --black: #000000;
+            --border: 4px solid #000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            font-family: 'Public Sans', sans-serif;
+            color: var(--black);
+            background-image: radial-gradient(#bbb 1px, transparent 1px);
+            background-size: 18px 18px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo { font-family: 'Unbounded', sans-serif; text-transform: uppercase; }
+
+        /* --- NAVBAR --- */
+        header { padding: 15px; position: sticky; top: 0; z-index: 1000; }
+        .navbar {
+            max-width: 1200px; margin: 0 auto;
+            background: #fff; border: var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px; box-shadow: 8px 8px 0px var(--black);
+        }
+        .logo { font-size: 18px; background: var(--black); color: #fff; padding: 5px 12px; transform: rotate(-1.5deg); }
+        #cart-info { font-weight: 800; background: var(--main); padding: 5px 10px; border: 2px solid #000; }
+
+        /* --- HERO --- */
+        .hero { padding: 50px 20px; text-align: center; }
+        .hero h1 {
+            font-size: clamp(35px, 8vw, 90px);
+            line-height: 0.85; transform: skewY(-2deg);
+            -webkit-text-stroke: 1.5px var(--black); color: var(--main);
+            text-shadow: 6px 6px 0 var(--black);
+            margin-bottom: 20px;
+        }
+
+        /* --- GRID PRODUK --- */
+        main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 40px; 
+        }
+
+        .product-card {
+            background: #fff; border: var(--border);
+            padding: 15px; position: relative; transition: 0.2s;
+            display: flex; flex-direction: column;
+        }
+
+        /* Bikin posisi miring acak biar gak kaku */
+        .product-card:nth-child(even) { transform: rotate(1.5deg); }
+        .product-card:nth-child(odd) { transform: rotate(-1.2deg); }
+        .product-card:nth-child(3n) { transform: rotate(0.8deg); }
+
+        .product-card:hover {
+            transform: rotate(0deg) scale(1.03) !important;
+            z-index: 10; box-shadow: 15px 15px 0px var(--accent);
+        }
+
+        .card-img {
+            width: 100%; aspect-ratio: 1/1;
+            object-fit: cover; border: var(--border);
+            margin-bottom: 15px; filter: contrast(1.1);
+        }
+
+        .badge {
+            position: absolute; top: -10px; right: -10px;
+            background: var(--black); color: #fff;
+            padding: 4px 12px; font-weight: 900; font-size: 11px;
+            border: 2px solid var(--main); transform: rotate(8deg);
+            z-index: 2;
+        }
+
+        .product-card h3 { font-size: 16px; margin-bottom: 8px; line-height: 1.2; }
+        .price { 
+            font-size: 22px; font-weight: 900; background: var(--main); 
+            display: inline-block; padding: 2px 8px; border: 2px solid #000;
+            margin-bottom: 15px;
+        }
+
+        .btn-beli {
+            margin-top: auto; width: 100%; padding: 15px;
+            background: var(--black); color: #fff; border: none;
+            font-family: 'Unbounded', sans-serif; font-size: 12px;
+            cursor: pointer; transition: 0.1s;
+        }
+        .btn-beli:hover { background: var(--accent); color: #fff; }
+
+        /* --- UI MODAL --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: none; place-items: center; z-index: 2000; padding: 20px;
+        }
+        .modal-box {
+            background: #fff; border: 6px solid #000; padding: 30px;
+            max-width: 400px; width: 100%; text-align: center; box-shadow: 20px 20px 0 var(--main);
+        }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 20px;
+            background: var(--black); color: #fff;
+            padding: 15px 30px; font-weight: 900; border: 3px solid var(--main);
+            display: none; z-index: 3000;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 40px; }
+            .product-grid { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">MKN_RIOT!</div>
+            <div id="cart-info">ORDER_LIST: [<span id="count">0</span>]</div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>9_MODUL_RASA_LIAR</h1>
+    </section>
+
+    <main>
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="badge">HOT_ITEM</span>
+                <img src="https://dcostseafood.id/wp-content/uploads/2023/04/Nasi-Goreng-telor.jpg" class="card-img" alt="Nasi Goreng">
+                <h3>NASI GORENG BRUTAL</h3>
+                <div class="price">RP 25.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://img.okezone.com/content/2019/05/04/298/2051609/yuk-buat-ayam-geprek-pedas-cocok-untuk-buka-puasa-bareng-keluarga-z1VHhnEl4n.jpg" class="card-img" alt="Ayam Geprek">
+                <h3>AYAM GEPREK CC</h3>
+                <div class="price">RP 22.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">DISC_10%</span>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Burger">
+                <h3>BURGER RONGSOK</h3>
+                <div class="price">RP 35.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Mie Goreng">
+                <h3>MIE GORENG GLITCH</h3>
+                <div class="price">RP 30.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">LIMIT_EDITION</span>
+                <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Pizza">
+                <h3>PIZZA ANARKI</h3>
+                <div class="price">RP 55.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/cbb9992a-cdad-438c-b34e-bbdbf8ad0710_Go-Biz_20250327_130709.jpeg" class="card-img" alt="Dimsum">
+                <h3>DIMSUM UNDERGROUND</h3>
+                <div class="price">RP 20.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Kentang">
+                <h3>TRUFFLE_FRIES_CHAOS</h3>
+                <div class="price">RP 18.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <span class="badge">CAFFEINE</span>
+                <img src="https://healtheroes.id/wp-content/uploads/2024/07/2011231700456177655ae6f14a1f7.jpg" class="card-img" alt="Kopi">
+                <h3>KOPI AREN LIAR</h3>
+                <div class="price">RP 18.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i0.wp.com/sepucukjambi.id/wp-content/uploads/2026/01/WhatsApp-Image-2026-01-15-at-11.23.30.jpeg?fit=1200%2C800&ssl=1" class="card-img" alt="Es Teh">
+                <h3>ES_TEH_BATERAI</h3>
+                <div class="price">RP 8.000</div>
+                <button class="btn-beli">EKSEKUSI</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal" class="modal-overlay">
+        <div class="modal-box">
+            <h2>KIRIM_PESANAN?</h2>
+            <p id="target-name" style="margin: 20px 0; font-weight: 800; border-bottom: 4px solid var(--accent); display: inline-block;"></p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="closeModal()" style="flex:1; padding:12px; border:3px solid #000; background:#fff; font-weight:900; cursor:pointer;">ABORT</button>
+                <button onclick="confirmPay()" style="flex:1; padding:12px; border:3px solid #000; background:var(--black); color:#fff; font-weight:900; cursor:pointer;">SEND_IT!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">DATA_BERHASIL_DIINPUT_!!!</div>
+
+    <script>
+        let cartCount = 0;
+        let selectedItem = "";
+        const modal = document.getElementById('modal');
+        const toast = document.getElementById('toast');
+
+        // Event Listener buat tombol beli
+        document.querySelectorAll('.btn-beli').forEach(btn => {
+            btn.onclick = () => {
+                selectedItem = btn.parentElement.querySelector('h3').innerText;
+                document.getElementById('target-name').innerText = ">> " + selectedItem;
+                modal.style.display = 'grid';
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function confirmPay() {
+            cartCount++;
+            document.getElementById('count').innerText = cartCount;
+            closeModal();
+            
+            // Animasi Toast
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+    </script>
+</body>
+</html>
